@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: star-wars-two-deployment
+spec:
+  selector:
+    matchLabels:
+      app: star-wars-two
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: star-wars-two
+    spec:
+      containers:
+        - name: star-wars-two
+          image: derryukere/star-wars
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never # Image should not be pulled
+          env:
+            - name: MAX_STAR_WARS_CHARACTERS
+              valueFrom:
+                configMapKeyRef:
+                  name: sw-envs-two
+                  key: maxStarWarsCharacters
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sw-service-two
+spec:
+  selector:
+    app: star-wars-two
+  type: ClusterIP 
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      
