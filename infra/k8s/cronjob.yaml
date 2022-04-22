@@ -3,17 +3,19 @@ kind: CronJob
 metadata:
   name: hello
 spec:
-  schedule: "0 0 * * *"
+  schedule: "* * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: hello
-            image: busybox:1.28
+            image: derryukere/star-wars:latest
+            envFrom:
+            - secretRef:
+                name: demo-secret
             imagePullPolicy: IfNotPresent
             command:
-            - /bin/sh
-            - -c
-            - date; echo Hello from the Kubernetes cluster by Derry
+            - npm
+            - start
           restartPolicy: OnFailure

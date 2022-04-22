@@ -11,3 +11,13 @@ metadata:
   name: sw-envs-two
 data:
   maxStarWarsCharacters: "23"
+
+---
+# secrets.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-secret
+data:
+  MAX_STAR_WARS_CRON_JOB: THIS IS A CRON MESSAGE
+  
